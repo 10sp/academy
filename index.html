@@ -149,9 +149,24 @@
                 <button class="btn-primary text-white px-8 py-4 rounded-md font-medium">
                     Start Learning Free
                 </button>
-                <button class="btn-outline px-8 py-4 rounded-md font-medium">
+                <button id="watchDemoBtn" class="btn-outline px-8 py-4 rounded-md font-medium">
                     <i class="fas fa-play-circle mr-2"></i>Watch Demo
                 </button>
+            </div>
+            
+            <!-- Video Demo Section - Hidden by default, shown in modal -->
+            <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+                <div class="relative w-full max-w-3xl mx-4">
+                    <button id="closeModalBtn" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="rounded-xl overflow-hidden shadow-2xl">
+                        <video id="demoVideo" controls class="w-full h-auto max-h-[70vh]" preload="none">
+                            <source src="demo class.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
             </div>
             
             <!-- Terminal Preview -->
@@ -548,6 +563,31 @@
                     });
                 }
             });
+        });
+        
+        // Video modal functionality
+        document.getElementById('watchDemoBtn').addEventListener('click', function() {
+            document.getElementById('videoModal').classList.remove('hidden');
+            // Auto play video when modal opens
+            const video = document.getElementById('demoVideo');
+            video.play();
+        });
+        
+        // Close modal functionality
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('videoModal').classList.add('hidden');
+            // Pause video when modal closes
+            const video = document.getElementById('demoVideo');
+            video.pause();
+        });
+        
+        // Close modal when clicking outside the video
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                const video = document.getElementById('demoVideo');
+                video.pause();
+            }
         });
     </script>
 </body>
